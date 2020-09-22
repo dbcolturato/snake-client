@@ -14,6 +14,13 @@ const connect = function() {
     console.log('Successfully connected to game server');
     conn.write("Name: DBC");
   });
+  // conn.on('connect', () => {
+  //   conn.write("Move: down");
+  //   setTimeout(() => conn.write("Move: left"), 1000);
+  //   setTimeout(() => conn.write("Move: left"), 2000);
+  //   let interval = setInterval(() => conn.write("Move: left"), 50);
+  //   clearInterval(interval);
+  // });
   conn.on('data', (data) => {
     console.log('Server says: ', data);
   });
