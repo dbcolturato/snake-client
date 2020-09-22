@@ -9,41 +9,35 @@ const setupInput = function(conn) {
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
+  stdin.on('data', handleUserInput);
   stdin.resume();
-  handleUserInput();
   return stdin;
 }
 
-const handleUserInput = function() {
-  const stdin = process.stdin;
-  stdin.setRawMode(true);
-  stdin.setEncoding('utf8');
-  stdin.on('data', (key) => {
-    if (key === '\u0003') {
-      process.exit();
+const handleUserInput = function(key) {
+    switch (key) {
+      case '\u0003':
+        process.exit();
+        break;
+      case 'w':
+        connection.write("Move: up");
+        break;
+      case 'a':
+        connection.write("Move: left");
+        break;
+      case 's':
+        connection.write("Move: down");
+        break;
+      case 'd':
+        connection.write("Move: right");
+        break;
+      case 'h':
+        connection.write("Say: Hi");
+        break;
+      case 'b':
+        connection.write("Say: Bye");
+        break;
     }
-  });
-  stdin.on('data', (key) => {
-    if (key === 'w') {
-      connection.write("Move: up");
-    }
-    if (key === 'a') {
-      connection.write("Move: left");
-    }
-    if (key === 's') {   
-      connection.write("Move: down");
-    }
-    if (key === 'd') {
-      connection.write("Move: right");
-    }
-    if (key === 'h') {
-      connection.write("Say: Hi");
-    }
-    if (key === 'b') {
-      connection.write("Say: Bye");
-    }
-  });
-  return stdin;
 }
 
 module.exports = {
